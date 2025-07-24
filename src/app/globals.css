@@ -1,0 +1,209 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 17% 99%;
+    --foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary: 256 98% 55%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 215 28% 94%;
+    --secondary-foreground: 224 71% 4%;
+    --muted: 215 28% 94%;
+    --muted-foreground: 215 20% 45%;
+    --accent: 215 28% 94%;
+    --accent-foreground: 224 71% 4%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 215 28% 84%;
+    --input: 215 28% 84%;
+    --ring: 256 98% 55%;
+    --radius: 0.5rem;
+
+    /* Sidebar specific colors */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 224 71% 4%;
+    --sidebar-border: 215 28% 84%;
+    --sidebar-ring: 256 98% 55%;
+    --sidebar-accent: 210 29% 95%;
+    --sidebar-accent-foreground: 224 71% 4%;
+    --sidebar-primary: 256 98% 55%;
+    --sidebar-primary-foreground: 0 0% 98%;
+  }
+  .dark {
+    --background: 222 84% 5%;
+    --foreground: 0 0% 98%;
+    --card: 222 84% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 256 98% 55%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 256 98% 55%;
+    
+    /* Sidebar specific colors */
+    --sidebar-background: 222 84% 5%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 256 98% 55%;
+    --sidebar-accent: 217 33% 22%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-primary: 256 98% 55%;
+    --sidebar-primary-foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'Hind Siliguri', sans-serif;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  html, body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background-color: white !important;
+  }
+
+  /* Reset dialog positioning for printing from a dialog */
+  .print-dialog-content {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+  
+  /* Hide everything in the body by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Make the printable area and all its children visible */
+  #printable-po, #printable-po *,
+  #printable-ledger, #printable-ledger *,
+  #printable-custom-damaged, #printable-custom-damaged *,
+  #printable-damaged-report-filtered, #printable-damaged-report-filtered *,
+  #printable-receivable-report, #printable-receivable-report *,
+  #printable-products-report, #printable-products-report *,
+  #printable-global-report, #printable-global-report *,
+  #printable-attendance-report, #printable-attendance-report *,
+  #printable-supplier-payment-report, #printable-supplier-payment-report *,
+  #printable-monthly-sales-report, #printable-monthly-sales-report *,
+  #printable-daily-summary, #printable-daily-summary *,
+  #printable-cash-calculator, #printable-cash-calculator * {
+    visibility: visible;
+  }
+
+  /* Position the printable area to be the only thing on the page */
+  #printable-po, #printable-ledger, #printable-custom-damaged, #printable-damaged-report-filtered, #printable-receivable-report, #printable-products-report, #printable-global-report, #printable-attendance-report, #printable-supplier-payment-report, #printable-monthly-sales-report, #printable-daily-summary, #printable-cash-calculator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 0;
+    font-size: 10pt;
+    color: black;
+  }
+  
+  h1, h2, h3, h4, h5, h6, header, footer {
+    page-break-after: avoid;
+  }
+
+  /* Table styles for printing */
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      page-break-inside: auto;
+  }
+  
+  thead {
+      display: table-header-group;
+  }
+
+  tfoot {
+      display: table-footer-group;
+      border-top: 2px solid #ddd !important;
+      font-weight: bold;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  th, td {
+    border: 1px solid #ddd !important;
+    padding: 4px;
+  }
+  
+  th {
+    background-color: #f2f2f2 !important;
+  }
+  
+  /* Hide elements that should not be printed */
+  .no-print {
+    display: none !important;
+  }
+  
+  /* Show elements that should only be printed */
+  .print-only {
+    display: block !important;
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+/* Added for glow effect */
+.text-glow {
+  background: linear-gradient(120deg, #541DFE 20%, white 50%, #541DFE 80%);
+  background-size: 300% 300%;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: glow 8s ease-in-out infinite;
+}
+
+.loading-bar {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.loading-bar.loading {
+  transform: translateX(0);
+}
